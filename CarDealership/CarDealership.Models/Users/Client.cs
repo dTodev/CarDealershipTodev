@@ -10,7 +10,7 @@ namespace CarDealership.Models.Users
         public string Email { get; set; }
         public DateTime DateOfBirth { get; set; }
         public int TotalPurchases { get; set; }
-        public int TotalMoneySpent { get; set; }
+        public decimal TotalMoneySpent { get; set; }
         public DateTime LastPurchaseDate { get; set; }
         public DateTime LastUpdated { get; set; }
     }

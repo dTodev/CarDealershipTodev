@@ -24,32 +24,31 @@ namespace CarDealership.BL.CommandHandlers.BrandCommandHandlers
 
         public async Task<CreateBrandResponse> Handle(CreateBrandCommand brandRequest, CancellationToken cancellationToken)
         {
-            try
+            var auth = await _brandRepository.GetBrandByName(brandRequest._brand.BrandName);
+
+            if (auth != null)
             {
-                var auth = await _brandRepository.GetBrandByName(brandRequest._brand.BrandName);
-
-                if (auth != null)
-                    return new CreateBrandResponse()
-                    {
-                        HttpStatusCode = HttpStatusCode.BadRequest,
-                        Message = "Brand already exist, creation operation is not possible."
-                    };
-
-                var brand = _mapper.Map<Brand>(brandRequest._brand);
-                var result = await _brandRepository.CreateBrand(brand);
+                _logger.LogError($"Brand creation failed due to brand already existing in DB!");
 
                 return new CreateBrandResponse()
                 {
-                    HttpStatusCode = HttpStatusCode.OK,
-                    Message = "Create operation successful, above brand was added!",
-                    BrandName = result
+                    HttpStatusCode = HttpStatusCode.BadRequest,
+                    Message = "Brand already exist, creation operation is not possible."
                 };
             }
-            catch (Exception e)
+
+            var brand = _mapper.Map<Brand>(brandRequest._brand);
+
+            var result = await _brandRepository.CreateBrand(brand);
+
+            _logger.LogInformation($"Brand creation successful!");
+
+            return new CreateBrandResponse()
             {
-                _logger.LogError($"Create Brand Command Handler operation error. Exception: {e}");
-                throw;
-            }
+                HttpStatusCode = HttpStatusCode.OK,
+                Message = "Create operation successful, above brand was added!",
+                BrandName = result
+            };
         }
     }
 }

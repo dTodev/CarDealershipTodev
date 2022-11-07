@@ -53,7 +53,7 @@ namespace CarDealership.Controllers
         }
 
         [HttpGet(nameof(GetClientById))]
-        public async Task<IActionResult> GetClientById(int clientId)
+        public async Task<IActionResult> GetClientById([FromQuery] GetClientByIdRequest clientId)
         {
             var result = await _mediator.Send(new GetClientByIdCommand(clientId));
 
@@ -64,7 +64,7 @@ namespace CarDealership.Controllers
         }
 
         [HttpGet(nameof(GetClientByName))]
-        public async Task<IActionResult> GetClientByName(string clientName)
+        public async Task<IActionResult> GetClientByName([FromQuery] GetClientByNameRequest clientName)
         {
             var result = await _mediator.Send(new GetClientByNameCommand(clientName));
 

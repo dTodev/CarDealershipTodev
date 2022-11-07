@@ -1,37 +1,45 @@
 ﻿using System.Net;
-using AutoMapper.Internal;
 using CarDealership.DL.Interfaces;
-using CarDealership.Models;
 using CarDealership.Models.MediatR.CarCommands;
 using CarDealership.Models.Responses.CarResponses;
 using MediatR;
+using Microsoft.Extensions.Logging;
 
 namespace CarDealership.BL.CommandHandlers.CarCommandHandlers
 {
-    public class GetCarByIdCommandHandler : IRequestHandler<GetCarByIdCommand, CreateCarResponse>
+    public class GetCarByIdCommandHandler : IRequestHandler<GetCarByIdCommand, GetCarByIdResponse>
     {
         private readonly ICarRepository _carRepository;
-        public GetCarByIdCommandHandler(ICarRepository carRepository)
+        private readonly ILogger<GetCarByIdCommandHandler> _logger;
+
+        public GetCarByIdCommandHandler(ICarRepository carRepository, ILogger<GetCarByIdCommandHandler> logger)
         {
             _carRepository = carRepository;
+            _logger = logger;
         }
 
-        public async Task<CreateCarResponse> Handle(GetCarByIdCommand request, CancellationToken cancellationToken)
+        public async Task<GetCarByIdResponse> Handle(GetCarByIdCommand request, CancellationToken cancellationToken)
         {
-            var result = await _carRepository.GetCarById(request.carId);
+            var result = await _carRepository.GetCarById(request.carId.Id);
 
-            if(result == null)
-                return new CreateCarResponse()
+            if(result == null) {
+
+                _logger.LogError($"Retrieve car failed due to no car with ID: {request.carId} found!");
+
+                return new GetCarByIdResponse()
                 {
                     HttpStatusCode = HttpStatusCode.BadRequest,
                     Message = "Car with such ID does not exist, get operation not possible!"
                 };
+            }
 
-            return new CreateCarResponse()
+            _logger.LogInformation($"Retrieve car with ID: {request.carId} successful!");
+
+            return new GetCarByIdResponse()
             {
                 HttpStatusCode = HttpStatusCode.OK,
                 Message = "Retrieved car successfully!",
-                Model = result
+                Id = result
             };
         }
     }

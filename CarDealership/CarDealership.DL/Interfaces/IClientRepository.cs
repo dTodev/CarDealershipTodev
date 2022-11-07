@@ -11,6 +11,6 @@ namespace CarDealership.DL.Interfaces
         public Task <Client> GetClientById(int clientId);
         public Task <Client> GetClientByName(string clientName);
         public Task <Client> GetClientByEmail(string clientEmail);
-        public Task <Client> AddPurchaseData();
+        public Task <Client> UpdatePurchaseData(Client client);
     }
 }

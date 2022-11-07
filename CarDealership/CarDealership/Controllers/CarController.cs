@@ -22,6 +22,8 @@ namespace CarDealership.Controllers
         [HttpPost(nameof(CreateCar))]
         public async Task<IActionResult> CreateCar([FromBody] CreateCarRequest carRequest)
         {
+            _logger.LogInformation($"Car creation with model: {carRequest.Model} requested...");
+
             var result = await _mediator.Send(new CreateCarCommand(carRequest));
 
             if (result.HttpStatusCode == HttpStatusCode.BadRequest)
@@ -33,6 +35,8 @@ namespace CarDealership.Controllers
         [HttpPost(nameof(UpdateCar))]
         public async Task<IActionResult> UpdateCar([FromBody] UpdateCarRequest carRequest)
         {
+            _logger.LogInformation($"Car update with model: {carRequest.Model} requested...");
+
             var result = await _mediator.Send(new UpdateCarCommand(carRequest));
 
             if (result.HttpStatusCode == HttpStatusCode.BadRequest)
@@ -44,6 +48,8 @@ namespace CarDealership.Controllers
         [HttpPost(nameof(DeleteCar))]
         public async Task<IActionResult> DeleteCar(DeleteCarRequest carId)
         {
+            _logger.LogInformation($"Car removal with ID: {carId.Id} requested...");
+
             var result = await _mediator.Send(new DeleteCarCommand(carId));
 
             if (result.HttpStatusCode == HttpStatusCode.BadRequest)
@@ -53,8 +59,10 @@ namespace CarDealership.Controllers
         }
 
         [HttpGet(nameof(GetCarById))]
-        public async Task<IActionResult> GetCarById(int carId)
+        public async Task<IActionResult> GetCarById([FromQuery] GetCarByIdRequest carId)
         {
+            _logger.LogInformation($"Retrieve car with ID: {carId.Id} requested...");
+
             var result = await _mediator.Send(new GetCarByIdCommand(carId));
 
             if (result.HttpStatusCode == HttpStatusCode.BadRequest)
@@ -64,9 +72,11 @@ namespace CarDealership.Controllers
         }
 
         [HttpGet(nameof(GetCarByModel))]
-        public async Task<IActionResult> GetCarByModel(string model)
+        public async Task<IActionResult> GetCarByModel([FromQuery] GetCarByModelRequest carModel)
         {
-            var result = await _mediator.Send(new GetCarByModelCommand(model));
+            _logger.LogInformation($"Retrieve car with Model: {carModel.Model} requested...");
+
+            var result = await _mediator.Send(new GetCarByModelCommand(carModel));
 
             if (result.HttpStatusCode == HttpStatusCode.BadRequest)
                 return BadRequest(result);
@@ -77,6 +87,8 @@ namespace CarDealership.Controllers
         [HttpGet(nameof(GetAllCars))]
         public async Task<IActionResult> GetAllCars()
         {
+            _logger.LogInformation($"Retrieve all cars list requested...");
+
             return Ok(await _mediator.Send(new GetAllCarsCommand()));
         }
     }

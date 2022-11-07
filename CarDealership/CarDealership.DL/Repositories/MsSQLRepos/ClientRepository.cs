@@ -151,9 +151,24 @@ namespace CarDealership.DL.Repositories.MsSQLRepos
             return new Client();
         }
 
-        public async Task<Client> AddPurchaseData()
+        public async Task<Client> UpdatePurchaseData(Client client)
         {
-            throw new NotImplementedException();
+            try
+            {
+                await using (var conn = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+                {
+                    await conn.OpenAsync();
+
+                    var result = await conn.ExecuteAsync("UPDATE [Clients] SET TotalPurchases = @TotalPurchases, TotalMoneySpent = @TotalMoneySpent, LastPurchaseDate = GETDATE(), LastUpdated = GETDATE() WHERE Id = @Id", client);
+
+                    return client;
+                }
+            }
+            catch (Exception e)
+            {
+                _logger.LogError($"Error in {nameof(UpdatePurchaseData)}: {e.Message}", e);
+            }
+            return new Client();
         }
     }
 }
