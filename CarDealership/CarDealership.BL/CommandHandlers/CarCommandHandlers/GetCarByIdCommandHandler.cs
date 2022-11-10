@@ -28,7 +28,7 @@ namespace CarDealership.BL.CommandHandlers.CarCommandHandlers
 
                 return new GetCarByIdResponse()
                 {
-                    HttpStatusCode = HttpStatusCode.BadRequest,
+                    HttpStatusCode = HttpStatusCode.NotFound,
                     Message = "Car with such ID does not exist, get operation not possible!"
                 };
             }

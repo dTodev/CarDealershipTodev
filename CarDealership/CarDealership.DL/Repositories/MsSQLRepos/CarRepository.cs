@@ -1,6 +1,6 @@
 ﻿using System.Data.SqlClient;
 using CarDealership.DL.Interfaces;
-using CarDealership.Models;
+using CarDealership.Models.Models;
 using Dapper;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;

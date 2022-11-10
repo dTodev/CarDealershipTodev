@@ -1,8 +1,8 @@
 ﻿using System.Net;
 using AutoMapper;
 using CarDealership.DL.Interfaces;
-using CarDealership.Models;
 using CarDealership.Models.MediatR.CarCommands;
+using CarDealership.Models.Models;
 using CarDealership.Models.Responses.CarResponses;
 using MediatR;
 using Microsoft.Extensions.Logging;
@@ -35,7 +35,7 @@ namespace CarDealership.BL.CommandHandlers.CarCommandHandlers
 
                 return new CreateCarResponse()
                 {
-                    HttpStatusCode = HttpStatusCode.BadRequest,
+                    HttpStatusCode = HttpStatusCode.NotFound,
                     Message = "Brand with such ID does not exist, create operation not possible!"
                 };
             }
@@ -56,6 +56,8 @@ namespace CarDealership.BL.CommandHandlers.CarCommandHandlers
             var result = await _carRepository.CreateCar(car);
 
             _logger.LogInformation($"Car creation successful!");
+
+        
 
             return new CreateCarResponse() 
             {

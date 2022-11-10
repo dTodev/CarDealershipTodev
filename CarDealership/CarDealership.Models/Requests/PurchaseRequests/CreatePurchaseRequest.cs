@@ -1,6 +1,4 @@
-﻿using System.Data.SqlTypes;
-
-namespace CarDealership.Models.Requests.PurchaseRequests
+﻿namespace CarDealership.Models.Requests.PurchaseRequests
 {
     public class CreatePurchaseRequest
     {

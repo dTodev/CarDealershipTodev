@@ -1,4 +1,6 @@
-﻿namespace CarDealership.Models.Responses.PurchaseResponses
+﻿using CarDealership.Models.Models;
+
+namespace CarDealership.Models.Responses.PurchaseResponses
 {
     public class GetAllPurchasesForPeriodResponse : BaseResponse
     {

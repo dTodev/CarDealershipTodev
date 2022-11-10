@@ -13,7 +13,6 @@ namespace CarDealership.Extensions
             services.AddSingleton<ICarRepository, CarRepository>();
             services.AddSingleton<IBrandRepository, BrandRepository>();
             services.AddSingleton<IClientRepository, ClientRepository>();
-            services.AddSingleton<IEmployeeRepository, EmployeeRepository>();
             services.AddSingleton<IPurchaseRepository, PurchaseRepository>();
 
             return services;

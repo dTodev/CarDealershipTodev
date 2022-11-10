@@ -29,6 +29,9 @@ namespace CarDealership.Controllers
             if (result.HttpStatusCode == HttpStatusCode.BadRequest)
                 return BadRequest(result);
 
+            if (result.HttpStatusCode == HttpStatusCode.NotFound)
+                return NotFound(result);
+
             return Ok(result);
         }
 
@@ -39,8 +42,8 @@ namespace CarDealership.Controllers
 
             var result = await _mediator.Send(new UpdateCarCommand(carRequest));
 
-            if (result.HttpStatusCode == HttpStatusCode.BadRequest)
-                return BadRequest(result);
+            if (result.HttpStatusCode == HttpStatusCode.NotFound)
+                return NotFound(result);
 
             return Ok(result);
         }
@@ -52,8 +55,8 @@ namespace CarDealership.Controllers
 
             var result = await _mediator.Send(new DeleteCarCommand(carId));
 
-            if (result.HttpStatusCode == HttpStatusCode.BadRequest)
-                return BadRequest(result);
+            if (result.HttpStatusCode == HttpStatusCode.NotFound)
+                return NotFound(result);
 
             return Ok(result);
         }
@@ -65,8 +68,8 @@ namespace CarDealership.Controllers
 
             var result = await _mediator.Send(new GetCarByIdCommand(carId));
 
-            if (result.HttpStatusCode == HttpStatusCode.BadRequest)
-                return BadRequest(result);
+            if (result.HttpStatusCode == HttpStatusCode.NotFound)
+                return NotFound(result);
 
             return Ok(result);
         }
@@ -78,8 +81,8 @@ namespace CarDealership.Controllers
 
             var result = await _mediator.Send(new GetCarByModelCommand(carModel));
 
-            if (result.HttpStatusCode == HttpStatusCode.BadRequest)
-                return BadRequest(result);
+            if (result.HttpStatusCode == HttpStatusCode.NotFound)
+                return NotFound(result);
 
             return Ok(result);
         }

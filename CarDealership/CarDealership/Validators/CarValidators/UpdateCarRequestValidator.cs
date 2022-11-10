@@ -1,5 +1,4 @@
-﻿using CarDealership.Models;
-using CarDealership.Models.Requests.CarRequests;
+﻿using CarDealership.Models.Requests.CarRequests;
 using FluentValidation;
 
 namespace CarDealership.Validators.CarValidators

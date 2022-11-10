@@ -1,7 +1,6 @@
 ﻿using CarDealership.DL.Interfaces;
-using CarDealership.Models;
 using CarDealership.Models.MediatR.BrandCommands;
-using CarDealership.Models.MediatR.CarCommands;
+using CarDealership.Models.Models;
 using MediatR;
 using Microsoft.Extensions.Logging;
 

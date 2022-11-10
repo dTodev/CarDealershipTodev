@@ -33,7 +33,7 @@ namespace CarDealership.BL.Services
                     Value = value
                 };
 
-                var result = await _producer.ProduceAsync($"{typeof(TValue).Name}.Cache", message);
+                var result = await _producer.ProduceAsync($"{_kafkaSettings.CurrentValue.KafkaProduceTopic}", message);
 
                 if (result != null)
                 {

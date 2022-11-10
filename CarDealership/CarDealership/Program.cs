@@ -26,7 +26,6 @@ var logger = new LoggerConfiguration()
 var builder = WebApplication.CreateBuilder(args);
 
 //Serilog
-//builder.Logging.ClearProviders();
 builder.Logging.AddSerilog(logger);
 
 //Configs

@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using CarDealership.Models.Models;
+using MediatR;
 
 namespace CarDealership.Models.MediatR.CarCommands
 {

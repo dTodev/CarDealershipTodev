@@ -1,8 +1,8 @@
 ﻿using System.Net;
 using AutoMapper;
 using CarDealership.DL.Interfaces;
-using CarDealership.Models;
 using CarDealership.Models.MediatR.CarCommands;
+using CarDealership.Models.Models;
 using CarDealership.Models.Responses.CarResponses;
 using MediatR;
 using Microsoft.Extensions.Logging;
@@ -24,7 +24,7 @@ namespace CarDealership.BL.CommandHandlers.CarCommandHandlers
 
         public async Task<UpdateCarResponse> Handle(UpdateCarCommand carRequest, CancellationToken cancellationToken)
         {
-            var auth = _carRepository.GetCarById(carRequest._car.Id);
+            var auth = await _carRepository.GetCarById(carRequest._car.Id);
 
             if (auth == null)
             {
@@ -32,7 +32,7 @@ namespace CarDealership.BL.CommandHandlers.CarCommandHandlers
 
                 return new UpdateCarResponse()
                 {
-                    HttpStatusCode = HttpStatusCode.BadRequest,
+                    HttpStatusCode = HttpStatusCode.NotFound,
                     Message = "Car does not exist, update operation is not possible!"
                 };
             }

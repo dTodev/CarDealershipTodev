@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using CarDealership.Models;
+using CarDealership.Models.Models;
 using CarDealership.Models.Requests.BrandRequests;
 using CarDealership.Models.Requests.CarRequests;
 using CarDealership.Models.Requests.ClientRequests;
@@ -7,7 +7,7 @@ using CarDealership.Models.Users;
 
 namespace CarDealership.AutoMapper
 {
-    internal class AutoMapping : Profile
+    public class AutoMapping : Profile
     {
         public AutoMapping()
         {

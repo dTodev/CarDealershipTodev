@@ -22,13 +22,13 @@ namespace CarDealership.BL.CommandHandlers.PurchaseCommandHandlers
         {
             var result = await _purchaseRepository.GetAllClientPurchases(purchaseRequest.purchase.Id);
 
-            if (result == null)
+            if (!result.Any())
             {
                 _logger.LogError($"Retrieve of purchases for client with ID: {purchaseRequest.purchase.Id} failed - No purchases found!");
 
                 return new GetAllPurchasesOfClientResponse()
                 {
-                    HttpStatusCode = HttpStatusCode.BadRequest,
+                    HttpStatusCode = HttpStatusCode.NotFound,
                     Message = $"Retrieve list of purchases failed for client with ID: {purchaseRequest.purchase.Id} - No purchases found!"
                 };
             }

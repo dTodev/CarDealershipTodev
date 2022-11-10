@@ -1,11 +1,7 @@
 ﻿using System.Net;
 using AutoMapper;
-using AutoMapper.Internal;
 using CarDealership.DL.Interfaces;
-using CarDealership.Models;
-using CarDealership.Models.MediatR.CarCommands;
 using CarDealership.Models.MediatR.ClientCommands;
-using CarDealership.Models.Responses.CarResponses;
 using CarDealership.Models.Responses.ClientResponses;
 using CarDealership.Models.Users;
 using MediatR;

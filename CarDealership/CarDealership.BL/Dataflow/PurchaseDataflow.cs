@@ -1,11 +1,11 @@
 ﻿using System.Threading.Tasks.Dataflow;
 using CarDealership.BL.Services;
 using CarDealership.DL.Interfaces;
-using CarDealership.Models;
 using CarDealership.Models.Configurations;
 using CarDealership.Models.KafkaModels;
-using CarDealership.Models.Users;
+using CarDealership.Models.Models;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
 namespace CarDealership.BL.Dataflow
@@ -18,17 +18,19 @@ namespace CarDealership.BL.Dataflow
         private readonly IClientRepository _clientRepository;
         private readonly IPurchaseRepository _purchaseRepository;
         private readonly KafkaConsumerService<Guid, BasePurchase> _kafkaConsumerService;
+        private readonly ILogger<KafkaConsumerService<Guid, BasePurchase>> _logger;
         private readonly TransformBlock<BasePurchase, List<Purchase>> _purchaseObjectModelling;
         private readonly TransformBlock<List<Purchase>, List<Purchase>> _enrichPurchaseData;
         private readonly ActionBlock<List<Purchase>> _RecordPurchaseInDB;
 
-        public PurchaseDataflow(IOptionsMonitor<KafkaSettings> kafkaSettings, ICarRepository carRepository, IBrandRepository brandRepository, IClientRepository clientRepository, IPurchaseRepository purchaseRepository)
+        public PurchaseDataflow(IOptionsMonitor<KafkaSettings> kafkaSettings, ICarRepository carRepository, IBrandRepository brandRepository, IClientRepository clientRepository, IPurchaseRepository purchaseRepository, ILogger<KafkaConsumerService<Guid, BasePurchase>> logger)
         {
             _kafkaSettings = kafkaSettings;
             _carRepository = carRepository;
             _brandRepository = brandRepository;
             _clientRepository = clientRepository;
             _purchaseRepository = purchaseRepository;
+            _logger = logger;
 
             _purchaseObjectModelling = new TransformBlock<BasePurchase, List<Purchase>>(async request =>
             {
@@ -86,7 +88,7 @@ namespace CarDealership.BL.Dataflow
 
             _enrichPurchaseData.LinkTo(_RecordPurchaseInDB);
 
-            _kafkaConsumerService = new KafkaConsumerService<Guid, BasePurchase>(_kafkaSettings, PurchaseHandler);
+            _kafkaConsumerService = new KafkaConsumerService<Guid, BasePurchase>(_kafkaSettings, _logger, PurchaseHandler);
         }
 
         private void PurchaseHandler(BasePurchase purchase)

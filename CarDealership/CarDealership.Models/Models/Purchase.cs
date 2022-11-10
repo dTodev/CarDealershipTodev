@@ -1,4 +1,4 @@
-﻿namespace CarDealership.Models
+﻿namespace CarDealership.Models.Models
 {
     public class Purchase
     {

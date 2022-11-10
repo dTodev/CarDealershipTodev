@@ -1,5 +1,4 @@
 using System.Net;
-using CarDealership.Models;
 using CarDealership.Models.KafkaModels;
 using CarDealership.Models.MediatR.PurchaseCommands;
 using CarDealership.Models.Requests.PurchaseRequests;
@@ -26,6 +25,9 @@ namespace CarDealership.Controllers
         {
             var result = await _mediator.Send(new CreatePurchaseCommand(purchase));
 
+            if (result.HttpStatusCode == HttpStatusCode.NotFound)
+                return NotFound(result);
+
             if (result.HttpStatusCode == HttpStatusCode.BadRequest)
                 return BadRequest(result);
 
@@ -37,8 +39,8 @@ namespace CarDealership.Controllers
         {
             var result = await _mediator.Send(new GetAllPurchasesOfClientCommand(request));
 
-            if (result.HttpStatusCode == HttpStatusCode.BadRequest)
-                return BadRequest(result);
+            if (result.HttpStatusCode == HttpStatusCode.NotFound)
+                return NotFound(result);
 
             return Ok(result);
         }

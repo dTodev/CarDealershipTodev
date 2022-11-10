@@ -1,6 +1,4 @@
-﻿using System.Data.SqlTypes;
-
-namespace CarDealership.Models.Users
+﻿namespace CarDealership.Models.Users
 {
     public class Client
     {

@@ -10,7 +10,6 @@ namespace CarDealership.Middleware
 
         public AppException(string message, params object[] args) : base(string.Format(CultureInfo.CurrentCulture, message, args))
         {
-
         }
     }
 }

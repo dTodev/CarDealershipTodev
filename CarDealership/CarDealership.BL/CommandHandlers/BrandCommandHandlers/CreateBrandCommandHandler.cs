@@ -1,8 +1,8 @@
 ﻿using System.Net;
 using AutoMapper;
 using CarDealership.DL.Interfaces;
-using CarDealership.Models;
 using CarDealership.Models.MediatR.BrandCommands;
+using CarDealership.Models.Models;
 using CarDealership.Models.Responses.BrandResponses;
 using MediatR;
 using Microsoft.Extensions.Logging;

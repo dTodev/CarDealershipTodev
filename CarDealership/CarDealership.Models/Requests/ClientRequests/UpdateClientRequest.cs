@@ -1,6 +1,4 @@
-﻿using System.Data.SqlTypes;
-
-namespace CarDealership.Models.Requests.ClientRequests
+﻿namespace CarDealership.Models.Requests.ClientRequests
 {
     public class UpdateClientRequest
     {

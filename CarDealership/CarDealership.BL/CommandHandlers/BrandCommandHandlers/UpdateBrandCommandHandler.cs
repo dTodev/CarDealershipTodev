@@ -1,11 +1,8 @@
-﻿using System.Data.Odbc;
-using System.Net;
+﻿using System.Net;
 using AutoMapper;
-using AutoMapper.Internal;
-using CarDealership.BL.CommandHandlers.CarCommandHandlers;
 using CarDealership.DL.Interfaces;
-using CarDealership.Models;
 using CarDealership.Models.MediatR.BrandCommands;
+using CarDealership.Models.Models;
 using CarDealership.Models.Responses.BrandResponses;
 using MediatR;
 using Microsoft.Extensions.Logging;

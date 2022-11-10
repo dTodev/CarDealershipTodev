@@ -28,7 +28,7 @@ namespace CarDealership.BL.CommandHandlers.CarCommandHandlers
 
                 return new GetCarByModelResponse()
                 {
-                    HttpStatusCode = HttpStatusCode.BadRequest,
+                    HttpStatusCode = HttpStatusCode.NotFound,
                     Message = "Car with such model does not exist, get operation not possible!"
                 };
             }

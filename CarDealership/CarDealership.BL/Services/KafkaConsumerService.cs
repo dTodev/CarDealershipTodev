@@ -1,6 +1,7 @@
 ﻿using CarDealership.BL.Serializers;
 using CarDealership.Models.Configurations;
 using Confluent.Kafka;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
 namespace CarDealership.BL.Services
@@ -9,12 +10,13 @@ namespace CarDealership.BL.Services
     {
         private readonly IOptionsMonitor<KafkaSettings> _kafkaSettings;
         private readonly IConsumer<TKey, TValue> _consumer;
+        private readonly ILogger<KafkaConsumerService<TKey, TValue>> _logger;
         private Action<TValue> _action;
 
-        public KafkaConsumerService(IOptionsMonitor<KafkaSettings> kafkaSettings, Action<TValue> action)
+        public KafkaConsumerService(IOptionsMonitor<KafkaSettings> kafkaSettings, ILogger<KafkaConsumerService<TKey, TValue>> logger, Action<TValue> action)
         {
             _kafkaSettings = kafkaSettings;
-
+            _logger = logger;
             _action = action;
 
             var config = new ConsumerConfig()
@@ -26,7 +28,7 @@ namespace CarDealership.BL.Services
 
             _consumer = new ConsumerBuilder<TKey, TValue>(config).SetKeyDeserializer(new MsgPackDeserializer<TKey>()).SetValueDeserializer(new MsgPackDeserializer<TValue>()).Build();
 
-            _consumer.Subscribe($"{typeof(TValue).Name}.Cache");
+            _consumer.Subscribe($"{_kafkaSettings.CurrentValue.KafkaConsumeTopicFirst}");
         }
 
         public void Consume()
@@ -35,8 +37,7 @@ namespace CarDealership.BL.Services
             {
                 var receivedMessage = _consumer.Consume();
                 _action.Invoke(receivedMessage.Message.Value);
-                Console.WriteLine(receivedMessage.Message.Value);
-                
+                _logger.LogInformation($"Consumed: {receivedMessage.Message.Value} from topic: {receivedMessage.Topic}");
             }
         }
     }

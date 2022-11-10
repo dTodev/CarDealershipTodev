@@ -1,4 +1,4 @@
-﻿using CarDealership.Models;
+﻿using CarDealership.Models.Models;
 
 namespace CarDealership.DL.Interfaces
 {

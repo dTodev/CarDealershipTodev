@@ -1,6 +1,4 @@
 using System.Net;
-using AutoMapper.Internal;
-using CarDealership.Models;
 using CarDealership.Models.MediatR.BrandCommands;
 using CarDealership.Models.Requests.BrandRequests;
 using MediatR;

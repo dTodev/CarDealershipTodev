@@ -1,8 +1,8 @@
 ﻿using System.Net;
 using AutoMapper;
 using CarDealership.DL.Interfaces;
-using CarDealership.Models;
 using CarDealership.Models.MediatR.CarCommands;
+using CarDealership.Models.Models;
 using CarDealership.Models.Responses.CarResponses;
 using MediatR;
 using Microsoft.Extensions.Logging;
@@ -32,7 +32,7 @@ namespace CarDealership.BL.CommandHandlers.CarCommandHandlers
 
                 return new DeleteCarResponse()
                 {
-                    HttpStatusCode = HttpStatusCode.BadRequest,
+                    HttpStatusCode = HttpStatusCode.NotFound,
                     Message = "Car does not exist, delete operation is not possible!"
                 };
             }

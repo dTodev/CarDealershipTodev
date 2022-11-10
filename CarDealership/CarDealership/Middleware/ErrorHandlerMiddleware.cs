@@ -37,7 +37,10 @@ namespace CarDealership.Middleware
                         response.StatusCode = (int)HttpStatusCode.Unauthorized;
                         break;
                     case NotImplementedException e:
-                        response.StatusCode= (int)HttpStatusCode.NotImplemented;
+                        response.StatusCode = (int)HttpStatusCode.NotImplemented;
+                        break;
+                    case NullReferenceException e:
+                        response.StatusCode = (int)HttpStatusCode.NoContent;
                         break;
                     default:
                         response.StatusCode = (int)HttpStatusCode.InternalServerError;

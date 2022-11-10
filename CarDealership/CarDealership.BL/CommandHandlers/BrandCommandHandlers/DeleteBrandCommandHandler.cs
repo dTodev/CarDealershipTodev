@@ -1,7 +1,5 @@
 ﻿using System.Net;
 using AutoMapper;
-using AutoMapper.Internal;
-using CarDealership.BL.CommandHandlers.CarCommandHandlers;
 using CarDealership.DL.Interfaces;
 using CarDealership.Models.MediatR.BrandCommands;
 using CarDealership.Models.Responses.BrandResponses;
