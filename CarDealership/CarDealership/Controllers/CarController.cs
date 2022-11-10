@@ -35,7 +35,7 @@ namespace CarDealership.Controllers
             return Ok(result);
         }
 
-        [HttpPost(nameof(UpdateCar))]
+        [HttpPut(nameof(UpdateCar))]
         public async Task<IActionResult> UpdateCar([FromBody] UpdateCarRequest carRequest)
         {
             _logger.LogInformation($"Car update with model: {carRequest.Model} requested...");
@@ -48,7 +48,7 @@ namespace CarDealership.Controllers
             return Ok(result);
         }
 
-        [HttpPost(nameof(DeleteCar))]
+        [HttpDelete(nameof(DeleteCar))]
         public async Task<IActionResult> DeleteCar(DeleteCarRequest carId)
         {
             _logger.LogInformation($"Car removal with ID: {carId.Id} requested...");

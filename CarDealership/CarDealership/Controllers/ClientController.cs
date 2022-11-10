@@ -30,7 +30,7 @@ namespace CarDealership.Controllers
             return Ok(result);
         }
 
-        [HttpPost(nameof(UpdateClient))]
+        [HttpPut(nameof(UpdateClient))]
         public async Task<IActionResult> UpdateClient([FromBody] UpdateClientRequest clientRequest)
         {
             var result = await _mediator.Send(new UpdateClientCommand(clientRequest));
@@ -41,7 +41,7 @@ namespace CarDealership.Controllers
             return Ok(result);
         }
 
-        [HttpPost(nameof(DeleteClient))]
+        [HttpDelete(nameof(DeleteClient))]
         public async Task<IActionResult> DeleteClient(DeleteClientRequest clientId)
         {
             var result = await _mediator.Send(new DeleteClientCommand(clientId));

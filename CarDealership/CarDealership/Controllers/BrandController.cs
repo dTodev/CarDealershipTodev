@@ -32,7 +32,7 @@ namespace CarDealership.Controllers
             return Ok(result);
         }
 
-        [HttpPost(nameof(UpdateBrand))]
+        [HttpPut(nameof(UpdateBrand))]
         public async Task<IActionResult> UpdateBrand([FromBody] UpdateBrandRequest brandRequest)
         {
             _logger.LogInformation($"Brand update with name: {brandRequest.BrandName} requested...");
@@ -45,7 +45,7 @@ namespace CarDealership.Controllers
             return Ok(result);
         }
 
-        [HttpPost(nameof(DeleteBrand))]
+        [HttpDelete(nameof(DeleteBrand))]
         public async Task<IActionResult> DeleteBrand([FromBody] DeleteBrandRequest brandId)
         {
             _logger.LogInformation($"Brand removal with ID: {brandId.Id} requested...");
